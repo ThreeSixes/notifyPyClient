@@ -3,7 +3,7 @@ import json
 import urllib
 import urllib2
 
-class notify():
+class notifyPyClient():
 	def __init__(self, destination, token):
 		"""
 		Notify API of events. Requires a destination URL and auth token.
