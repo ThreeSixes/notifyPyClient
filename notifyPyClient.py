@@ -4,12 +4,13 @@ import urllib
 import urllib2
 
 class notifyPyClient():
-	def __init__(self, destination, token):
+	def __init__(self, destination, token, appName):
 		"""
 		Notify API of events. Requires a destination URL and auth token.
 		"""
 		
 		# Set token and destination host.
+		self.__appName = appName
 		self.__token = token
 		self.__callDst = destination
 	
@@ -24,7 +25,10 @@ class notifyPyClient():
 		respBody = "{}"
 		
 		# Send our token _always_.
-		payload.update({'authToken': self.__token})
+		payload.update({
+			'authToken': self.__token,
+			'appName': self.__appName
+		})
 		
 		try:
 			# Set headers and perform request.
