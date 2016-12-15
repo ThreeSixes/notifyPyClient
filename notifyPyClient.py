@@ -2,6 +2,7 @@ import netifaces as ni
 import json
 import urllib
 import urllib2
+from pprint import pprint
 
 class notifyPyClient():
 	def __init__(self, destination, token, appName):
@@ -39,14 +40,16 @@ class notifyPyClient():
 			response = urllib2.urlopen(req)
 			respBody = response.read()
 		
-		except urllib2.HTTPError:
-			None
+		except urllib2.HTTPError as httpErr:
+			# See if we can get the HTTP error string.
+			respData.update({'error': True, 'message': str(httpErr)})
 		
 		except:
 			raise
 		
 		finally:
 			try:
+				# Try to tack on response data.
 				respData.update(json.loads(respBody))
 			
 			except:
