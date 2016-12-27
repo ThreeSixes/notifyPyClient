@@ -22,11 +22,14 @@ class notifyPyClient():
 		# Set response data.
 		respData = {}
 		
+		# Send this message.
+		msg = {'pld': payload}
+		
 		# Set blank response body.
 		respBody = "{}"
 		
 		# Send our token _always_.
-		payload.update({
+		msg.update({
 			'authToken': self.__token,
 			'appName': self.__appName
 		})
@@ -34,7 +37,7 @@ class notifyPyClient():
 		try:
 			# Set headers and perform request.
 			headers = {'content-type': 'application/json'}    
-			req = urllib2.Request(self.__callDst, json.dumps(payload), headers)
+			req = urllib2.Request(self.__callDst, json.dumps(msg), headers)
 			
 			# Make the request and wait for the body to come back.
 			response = urllib2.urlopen(req)
